@@ -1,0 +1,3 @@
+include ':bin-wrapper'
+include ':app'
+rootProject.name = "Mitbin-client-native"
