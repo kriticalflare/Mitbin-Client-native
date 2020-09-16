@@ -34,6 +34,11 @@ class ViewPasteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewPasteViewModel by viewModels<ViewPasteViewModel>()
+
+        arguments?.getString("name")?.let {
+            binding.pasteText.setText(it)
+            viewPasteViewModel.viewPaste(it)
+        }
         viewPasteViewModel.pastes.observe(viewLifecycleOwner, Observer { pasteResult ->
             when (pasteResult) {
                 is PasteResult.Loading -> {

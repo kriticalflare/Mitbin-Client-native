@@ -10,10 +10,13 @@
         android:id="@+id/viewPasteFragment"
         android:name="com.kriticalflare.nativbin.viewPaste.ViewPasteFragment"
         android:label="View Pastes"
-        tools:layout="@layout/fragment_view_paste" >
+        tools:layout="@layout/fragment_view_paste">
         <action
             android:id="@+id/action_viewPasteFragment_to_addPasteFragment"
             app:destination="@id/addPasteFragment" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="https://mitbin.herokuapp.com/{name}" />
     </fragment>
     <fragment
         android:id="@+id/addPasteFragment"
