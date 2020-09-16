@@ -2,18 +2,17 @@ package com.kriticalflare.nativbin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.activity.viewModels
-import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.kriticalflare.nativbin.databinding.ActivityMainBinding
-import com.kriticalflare.nativbin.viewPaste.PasteResult
-import com.kriticalflare.nativbin.viewPaste.ViewPasteViewModel
-import retrofit2.Retrofit
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,40 +20,18 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val viewPasteViewModel by viewModels<ViewPasteViewModel>()
-        viewPasteViewModel.pastes.observe(this, Observer { pasteResult ->
-            when (pasteResult) {
-                is PasteResult.Loading -> {
-                    binding.viewPasteResultText.visibility = View.GONE
-                    binding.spinKit.visibility = View.VISIBLE
-                }
-                is PasteResult.Error -> {
-                    binding.viewPasteResultText.text = pasteResult.error
-                    binding.codeView.visibility = View.GONE
-                    binding.viewPasteResultText.visibility = View.VISIBLE
-                    binding.spinKit.visibility = View.GONE
-                }
-                is PasteResult.Success -> {
-                    binding.codeView.apply {
-                        setShowLineNumbers(true)
-                        setZoomSupportEnabled(true)
-                        visibility = View.VISIBLE
-                        setSource(pasteResult.paste.content)
-                        highlightLanguage = viewPasteViewModel.getContentLanguage(pasteResult.paste)
-                    }
-                    binding.viewPasteResultText.visibility = View.GONE
-                    binding.spinKit.visibility = View.GONE
-                }
-                else -> {
-                    // initial state
-                    binding.viewPasteResultText.text = "View paste"
-                    binding.viewPasteResultText.visibility = View.VISIBLE
-                }
-            }
-        })
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.pasteSearchBtn.setOnClickListener {
-            viewPasteViewModel.viewPaste(binding.pasteText.text.toString())
-        }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment)
+        return navController.navigateUp(appBarConfiguration)
+                || super.onSupportNavigateUp()
+    }
+
 }

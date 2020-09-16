@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    android:label="View Pastes"
+    app:startDestination="@id/viewPasteFragment">
+
+    <fragment
+        android:id="@+id/viewPasteFragment"
+        android:name="com.kriticalflare.nativbin.viewPaste.ViewPasteFragment"
+        android:label="View Pastes"
+        tools:layout="@layout/fragment_view_paste" >
+        <action
+            android:id="@+id/action_viewPasteFragment_to_addPasteFragment"
+            app:destination="@id/addPasteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPasteFragment"
+        android:name="com.kriticalflare.nativbin.addPaste.AddPasteFragment"
+        android:label="Add New Paste"
+        tools:layout="@layout/fragment_add_paste" />
+</navigation>

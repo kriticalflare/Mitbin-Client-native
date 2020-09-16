@@ -1,6 +1,7 @@
 package com.kriticalflare.bin_wrapper
 
 import com.kriticalflare.bin_wrapper.data.PasteRepository
+import com.kriticalflare.bin_wrapper.data.PasteResponse
 import com.kriticalflare.bin_wrapper.remote.MitBinServiceBuilder
 import com.kriticalflare.bin_wrapper.remote.model.Paste
 
@@ -11,5 +12,9 @@ class BinWrapper {
 
     suspend fun getPaste(name: String): List<Paste> {
         return pasteRepository.getPaste(name)
+    }
+
+    suspend fun addPaste(paste: Paste): PasteResponse {
+        return pasteRepository.addPaste(paste)
     }
 }

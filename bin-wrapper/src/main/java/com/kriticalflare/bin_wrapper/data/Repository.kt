@@ -6,5 +6,5 @@ interface Repository {
 
     suspend fun getPaste(name: String): List<Paste>
 
-    suspend fun addPaste()
+    suspend fun addPaste(paste: Paste): PasteResponse
 }
