@@ -66,6 +66,9 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
     implementation 'com.pddstudio:highlightjs-android:1.5.0'
+    implementation "com.github.markusressel:KodeEditor:3.0.2"
+
+    implementation "com.github.skydoves:powermenu:2.1.5"
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

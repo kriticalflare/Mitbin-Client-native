@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="black">#000000</color>
-    <color name="popupText">#000000</color>
-    <color name="popupBackground">#FFFFFF</color>
+    <color name="popupText">#FFFFFF</color>
+    <color name="popupBackground">#35363A</color>
+
 </resources>
