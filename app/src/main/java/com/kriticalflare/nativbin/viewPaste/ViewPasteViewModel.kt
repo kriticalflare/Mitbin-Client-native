@@ -45,10 +45,10 @@ class ViewPasteViewModel: ViewModel(){
                 return Language.JSON
             }
             "Plain Text" -> {
-                return null
+                return Language.JSON
             }
             else -> {
-                return null
+                return Language.JSON
             }
         }
     }

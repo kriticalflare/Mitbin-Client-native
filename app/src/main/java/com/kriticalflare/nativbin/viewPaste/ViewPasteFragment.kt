@@ -1,16 +1,21 @@
 package com.kriticalflare.nativbin.viewPaste
 
+import android.content.res.Configuration
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.kriticalflare.nativbin.R
 import com.kriticalflare.nativbin.databinding.FragmentViewPasteBinding
-
+import com.pddstudio.highlightjs.models.Theme;
 
 /**
  * A simple [Fragment] subclass.
@@ -27,12 +32,16 @@ class ViewPasteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentViewPasteBinding.inflate(inflater,container,false)
+        _binding = FragmentViewPasteBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.codeView.apply {
+            theme = if (isDarkMode()) Theme.DARK else Theme.GOOGLECODE
+        }
+
         val viewPasteViewModel by viewModels<ViewPasteViewModel>()
 
         arguments?.getString("name")?.let {
@@ -42,6 +51,7 @@ class ViewPasteFragment : Fragment() {
         viewPasteViewModel.pastes.observe(viewLifecycleOwner, Observer { pasteResult ->
             when (pasteResult) {
                 is PasteResult.Loading -> {
+                    binding.codeView.visibility = View.GONE
                     binding.viewPasteResultText.visibility = View.GONE
                     binding.spinKit.visibility = View.VISIBLE
                 }
@@ -55,9 +65,10 @@ class ViewPasteFragment : Fragment() {
                     binding.codeView.apply {
                         setShowLineNumbers(true)
                         setZoomSupportEnabled(true)
-                        visibility = View.VISIBLE
-                        setSource(pasteResult.paste.content)
                         highlightLanguage = viewPasteViewModel.getContentLanguage(pasteResult.paste)
+                        setSource(pasteResult.paste.content)
+                        visibility = View.VISIBLE
+                        setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.codeViewBackground))
                     }
                     binding.viewPasteResultText.visibility = View.GONE
                     binding.spinKit.visibility = View.GONE
@@ -76,6 +87,14 @@ class ViewPasteFragment : Fragment() {
 
         binding.addPasteFab.setOnClickListener {
             findNavController().navigate(R.id.action_viewPasteFragment_to_addPasteFragment)
+        }
+    }
+
+    private fun isDarkMode(): Boolean {
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
+        } else {
+            resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK === Configuration.UI_MODE_NIGHT_YES
         }
     }
 

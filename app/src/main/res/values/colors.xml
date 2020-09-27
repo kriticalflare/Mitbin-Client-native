@@ -6,4 +6,5 @@
     <color name="black">#000000</color>
     <color name="popupText">#000000</color>
     <color name="popupBackground">#FFFFFF</color>
+    <color name="codeViewBackground">#FFFFFF</color>
 </resources>
