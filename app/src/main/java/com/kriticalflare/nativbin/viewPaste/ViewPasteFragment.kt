@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.kriticalflare.nativbin.R
 import com.kriticalflare.nativbin.databinding.FragmentViewPasteBinding
@@ -86,7 +87,8 @@ class ViewPasteFragment : Fragment() {
         }
 
         binding.addPasteFab.setOnClickListener {
-            findNavController().navigate(R.id.action_viewPasteFragment_to_addPasteFragment)
+            val extras = FragmentNavigatorExtras(binding.addPasteFab to "create_paste_transform")
+            findNavController().navigate(R.id.action_viewPasteFragment_to_addPasteFragment, null, null, extras)
         }
     }
 

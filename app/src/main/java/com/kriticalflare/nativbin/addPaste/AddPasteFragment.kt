@@ -11,10 +11,14 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.interpolator.view.animation.FastOutLinearInInterpolator
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.transition.MaterialArcMotion
+import com.google.android.material.transition.MaterialContainerTransform
 import com.kriticalflare.bin_wrapper.data.PasteResponse
 import com.kriticalflare.bin_wrapper.remote.model.UploadPaste
 import com.kriticalflare.nativbin.R
@@ -29,6 +33,17 @@ class AddPasteFragment : Fragment() {
 
     private var _binding: FragmentAddPasteBinding? = null
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            scrimColor = Color.TRANSPARENT
+            duration = 400
+            setPathMotion(MaterialArcMotion())
+            interpolator = FastOutLinearInInterpolator()
+            fadeMode = MaterialContainerTransform.FADE_MODE_OUT
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
