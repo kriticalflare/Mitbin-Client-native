@@ -4,6 +4,7 @@ import com.kriticalflare.bin_wrapper.data.PasteRepository
 import com.kriticalflare.bin_wrapper.data.PasteResponse
 import com.kriticalflare.bin_wrapper.remote.MitBinServiceBuilder
 import com.kriticalflare.bin_wrapper.remote.model.Paste
+import com.kriticalflare.bin_wrapper.remote.model.UploadPaste
 
 class BinWrapper {
     private val pasteRepository by lazy {
@@ -14,7 +15,7 @@ class BinWrapper {
         return pasteRepository.getPaste(name)
     }
 
-    suspend fun addPaste(paste: Paste): PasteResponse {
+    suspend fun addPaste(paste: UploadPaste): PasteResponse {
         return pasteRepository.addPaste(paste)
     }
 }

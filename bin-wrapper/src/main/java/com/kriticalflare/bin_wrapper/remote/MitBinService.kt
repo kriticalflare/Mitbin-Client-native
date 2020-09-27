@@ -1,6 +1,7 @@
 package com.kriticalflare.bin_wrapper.remote
 
 import com.kriticalflare.bin_wrapper.remote.model.Paste
+import com.kriticalflare.bin_wrapper.remote.model.UploadPaste
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -12,5 +13,5 @@ interface MitBinService {
     suspend fun getPaste(@Query("name") name: String): List<Paste>
 
     @POST("paste")
-    suspend fun addPaste(@Body paste: Paste): Paste
+    suspend fun addPaste(@Body paste: UploadPaste): Paste
 }
