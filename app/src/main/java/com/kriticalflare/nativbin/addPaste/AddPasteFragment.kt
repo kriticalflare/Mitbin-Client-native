@@ -38,7 +38,7 @@ class AddPasteFragment : Fragment() {
         super.onCreate(savedInstanceState)
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             scrimColor = Color.TRANSPARENT
-            duration = 400
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
             setPathMotion(MaterialArcMotion())
             interpolator = FastOutLinearInInterpolator()
             fadeMode = MaterialContainerTransform.FADE_MODE_OUT
