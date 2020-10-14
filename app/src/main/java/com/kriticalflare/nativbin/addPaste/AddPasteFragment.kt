@@ -118,7 +118,7 @@ class AddPasteFragment : Fragment() {
             .setTextTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD))
             .setSelectedTextColor(Color.WHITE)
             .setMenuColor(ContextCompat.getColor(requireContext(), R.color.popupBackground))
-            .setSelectedMenuColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+            .setSelectedMenuColor(ContextCompat.getColor(requireContext(), R.color.purple_500))
             .setSelected(0)
             .build()
 
