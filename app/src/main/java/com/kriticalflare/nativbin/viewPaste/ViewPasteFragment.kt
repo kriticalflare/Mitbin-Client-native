@@ -18,16 +18,19 @@ import com.google.android.material.transition.MaterialElevationScale
 import com.kriticalflare.nativbin.R
 import com.kriticalflare.nativbin.databinding.FragmentViewPasteBinding
 import com.pddstudio.highlightjs.models.Theme;
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * A simple [Fragment] subclass.
  * Use the [ViewPasteFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 class ViewPasteFragment : Fragment() {
 
     private var _binding: FragmentViewPasteBinding? = null
     private val binding get() = _binding!!
+    private val viewPasteViewModel:ViewPasteViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,8 +57,9 @@ class ViewPasteFragment : Fragment() {
             theme = if (isDarkMode()) Theme.DARK else Theme.GOOGLECODE
         }
 
-        val viewPasteViewModel by viewModels<ViewPasteViewModel>()
-
+        binding.mvrxFab.setOnClickListener {
+            findNavController().navigate(R.id.action_viewPasteFragment_to_historyFragment)
+        }
         arguments?.getString("name")?.let {
             binding.pasteText.setText(it)
             viewPasteViewModel.viewPaste(it)

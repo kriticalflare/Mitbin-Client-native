@@ -17,10 +17,17 @@
         <deepLink
             android:id="@+id/deepLink"
             app:uri="https://mitbin.herokuapp.com/{name}" />
+        <action
+            android:id="@+id/action_viewPasteFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
     </fragment>
     <fragment
         android:id="@+id/addPasteFragment"
         android:name="com.kriticalflare.nativbin.addPaste.AddPasteFragment"
         android:label="Add New Paste"
         tools:layout="@layout/fragment_add_paste" />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.kriticalflare.nativbin.history.HistoryFragment"
+        android:label="HistoryFragment" />
 </navigation>
